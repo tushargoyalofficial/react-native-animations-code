@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Slider from "@react-native-community/slider";
+import "react-native-reanimated";
 // import AnimationsComponent from "./src/AnimatedAccordion/animation";
-import AnimatedCarousel from "./src/AnimatedCarousel/carousel";
+// import AnimatedCarousel from "./src/AnimatedCarousel/carousel";
+import MotiAnimations from "./src/MotiAnimations";
 
 const ShadowPropSlider = (props: any) => {
   const { label, value } = props;
@@ -19,9 +21,9 @@ const ShadowPropSlider = (props: any) => {
 
 const App1 = () => {
   const [shadowOffsetWidth, setShadowOffsetWidth] = useState(0);
-  const [shadowOffsetHeight, setShadowOffsetHeight] = useState(-10.00);
-  const [shadowRadius, setShadowRadius] = useState(10.00);
-  const [shadowOpacity, setShadowOpacity] = useState(0.60);
+  const [shadowOffsetHeight, setShadowOffsetHeight] = useState(-10.0);
+  const [shadowRadius, setShadowRadius] = useState(10.0);
+  const [shadowOpacity, setShadowOpacity] = useState(0.6);
 
   return (
     <View style={styles.container}>
@@ -110,7 +112,8 @@ const styles = StyleSheet.create({
 
 const App = () => {
   // return <AnimationsComponent />
-  return <AnimatedCarousel/>
-}
+  // return <AnimatedCarousel/>
+  return <MotiAnimations />;
+};
 
 export default App;
