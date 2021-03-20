@@ -1,9 +1,53 @@
 import * as React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import { View as MotiView } from "moti";
+import { View as MotiView, useAnimationState } from "moti";
+
+// you can create a reusable animation preset
+const useFadeInDown = () => {
+  return useAnimationState({
+    from: {
+      opacity: 0,
+      translateY: -15,
+    },
+    to: {
+      opacity: 1,
+      translateY: 0,
+    },
+  });
+};
 
 const MotiAnimations = () => {
-  const [pressed, onPressed] = React.useState(false);
+  const fadeInDown = useFadeInDown();
+
+  const scaleIn = useAnimationState({
+    from: {
+      scale: 0.5,
+    },
+    open: {
+      scale: 1,
+    },
+    big: {
+      scale: 1.5,
+    },
+  });
+
+  const onPress = () => {
+    fadeInDown.transitionTo((state) => {
+      if (state === "from") {
+        return "to";
+      } else {
+        return "from";
+      }
+    });
+
+    if (scaleIn.current === "from") {
+      scaleIn.transitionTo("open");
+    } else if (scaleIn.current === "open") {
+      scaleIn.transitionTo("big");
+    } else {
+      scaleIn.transitionTo("from");
+    }
+  };
 
   return (
     <>
@@ -37,27 +81,20 @@ const MotiAnimations = () => {
           </Text>
         </MotiView>
 
-        <Pressable
-          onPress={() => {
-            onPressed(!pressed);
-          }}
-        >
+        <Pressable onPress={onPress}>
           <MotiView
+            delay={300}
+            state={fadeInDown}
             style={[styles.box, { backgroundColor: "#f44336" }]}
-            animate={{
-              translateY: pressed ? 100 : 0,
+          />
+          <MotiView
+            transition={{
+              type: "spring",
             }}
-          >
-            <MotiView
-              animate={{
-                opacity: [0, 1],
-              }}
-            >
-              <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 20 }}>
-                {pressed ? "UP" : "DOWN"}
-              </Text>
-            </MotiView>
-          </MotiView>
+            delay={300}
+            state={scaleIn}
+            style={[styles.box, { backgroundColor: "#ededed" }]}
+          />
         </Pressable>
       </View>
     </>
