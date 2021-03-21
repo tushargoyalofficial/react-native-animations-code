@@ -66,9 +66,17 @@ const MotiCarousel = () => {
           showsHorizontalScrollIndicator={false}
           onViewableItemsChanged={onViewRef.current}
           viewabilityConfig={viewConfigRef.current}
-          renderItem={({ item }) => {
+          renderItem={({ item, index }) => {
             return (
-              <View
+              <MotiView
+                animate={{
+                  ...Platform.select({
+                    ios: {
+                      shadowOpacity: index === currentIndx ? 0.5 : 0,
+                    },
+                  }),
+                }}
+                transition={{ type: "timing", duration: 800 }}
                 style={{
                   width,
                   justifyContent: "center",
@@ -86,13 +94,14 @@ const MotiCarousel = () => {
                   }),
                 }}
               >
-                <View
+                <MotiView
+                  transition={{ type: "timing", duration: 800 }}
                   style={{
                     width: imageWidth,
                     height: imageHeight,
                     ...Platform.select({
                       android: {
-                        elevation: 10,
+                        elevation: index === currentIndx ? 10 : 0,
                         shadowColor: "#000",
                         overflow: "hidden",
                         borderRadius: 16,
@@ -110,8 +119,8 @@ const MotiCarousel = () => {
                       borderRadius: 16,
                     }}
                   />
-                </View>
-              </View>
+                </MotiView>
+              </MotiView>
             );
           }}
         />
