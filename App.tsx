@@ -4,7 +4,8 @@ import Slider from "@react-native-community/slider";
 import "react-native-reanimated";
 // import AnimationsComponent from "./src/AnimatedAccordion/animation";
 // import AnimatedCarousel from "./src/AnimatedCarousel/carousel";
-import MotiAnimations from "./src/MotiAnimations";
+// import MotiAnimations from "./src/MotiAnimations";
+import MotiCarousel from "./src/MotiCarousel";
 
 const ShadowPropSlider = (props: any) => {
   const { label, value } = props;
@@ -113,7 +114,8 @@ const styles = StyleSheet.create({
 const App = () => {
   // return <AnimationsComponent />
   // return <AnimatedCarousel/>
-  return <MotiAnimations />;
+  // return <MotiAnimations />;
+  return <MotiCarousel />
 };
 
 export default App;
